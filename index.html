@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>TimeLuxe — Men’s Watches Store</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">TimeLuxe</div>
+      <nav>
+        <button id="homeBtn">Home</button>
+        <button id="loginBtn">Login</button>
+        <div class="cart-btn">
+          <button id="cartBtn">Cart</button>
+          <span id="cartCount" class="badge" style="display: none">0</span>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <h1>Premium Men's Watches</h1>
+        <p>
+          Discover classic, sporty and luxury watches tailored for every
+          occasion.
+        </p>
+      </section>
+
+      <section>
+        <h2>Our Watches</h2>
+        <div class="grid" id="productsGrid"></div>
+      </section>
+    </main>
+
+    <footer>© <span id="year"></span> TimeLuxe — Watch Store</footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="overlay">
+      <div class="modal" style="max-width: 360px">
+        <h3>Login</h3>
+        <input
+          type="text"
+          id="username"
+          placeholder="Username"
+          class="muted-input"
+        />
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
+          class="muted-input"
+          style="margin-top: 8px"
+        />
+        <div class="modal-actions">
+          <button class="btn" id="loginSubmit">Login</button>
+          <button class="btn ghost" id="loginClose">Close</button>
+        </div>
+        <p id="loginMsg" class="small muted" style="margin-top: 8px"></p>
+      </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="overlay">
+      <div class="modal">
+        <h3>Your Cart</h3>
+        <div id="cartContent"></div>
+        <div class="cart-bottom">
+          <div class="small muted">Total: <span id="cartTotal">₹0</span></div>
+          <div class="cart-actions">
+            <button class="btn" id="checkoutBtn">Checkout</button>
+            <button class="btn ghost" id="closeCart">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="overlay">
+      <div class="modal">
+        <h3>Checkout</h3>
+        <div id="checkoutForm">
+          <label for="fullname">Full name</label>
+          <input
+            id="fullname"
+            class="muted-input"
+            placeholder="eg. Rahul Kumar"
+          />
+
+          <label for="phone">Phone</label>
+          <input id="phone" class="muted-input" placeholder="10 digit mobile" />
+
+          <label for="address">Address</label>
+          <textarea
+            id="address"
+            class="muted-input"
+            rows="3"
+            placeholder="House no, street, locality"
+          ></textarea>
+
+          <label for="city">City</label>
+          <input id="city" class="muted-input" placeholder="City" />
+
+          <label for="pincode">Pincode</label>
+          <input id="pincode" class="muted-input" placeholder="Pincode" />
+
+          <label>Payment method</label>
+          <select id="paymentMethod" class="muted-input">
+            <option value="cod">Cash on Delivery</option>
+            <option value="card">Mock Card (fake)</option>
+          </select>
+
+          <div id="cardFields" style="display: none; margin-top: 8px">
+            <label>Card number</label>
+            <input
+              id="cardNo"
+              class="muted-input"
+              placeholder="4242 4242 4242 4242"
+            />
+
+            <label>Expiry (MM/YY)</label>
+            <input id="cardExp" class="muted-input" placeholder="MM/YY" />
+
+            <label>CVC</label>
+            <input id="cardCvc" class="muted-input" placeholder="CVC" />
+          </div>
+
+          <div class="modal-actions">
+            <button class="btn" id="placeOrderBtn">Place Order</button>
+            <button class="btn ghost" id="cancelCheckout">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div id="confirmModal" class="overlay">
+      <div class="modal">
+        <h3>Order Placed</h3>
+        <div class="confirm">
+          <p class="small muted">Thank you! Your order is confirmed.</p>
+          <div class="confirm-id">
+            Order ID: <span id="orderId" class="success-id">#0000</span>
+          </div>
+          <div id="orderSummary" class="small muted order-summary"></div>
+          <div style="margin-top: 16px">
+            <button class="btn" id="doneBtn">Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast"></div>
+
+    <script type="module" src="index.js"></script>
+  </body>
+</html>

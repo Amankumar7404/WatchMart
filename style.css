@@ -1,0 +1,340 @@
+:root {
+  /* WatchMarket palette */
+  --bg: #0f1115;
+  --card: #151821;
+  --muted: #aab2c0;
+  --accent: #4dabf7;
+  --accent-ink: #0b0e13;
+  --line: #2a2f3a;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  user-select: none;
+  margin: 0;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  background: var(--bg);
+  color: #e6e6e6;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 22px;
+  background: var(--card);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+.brand {
+  font-size: 30px;
+  font-weight: 1000;
+  height: 39px;
+  color: var(--accent);
+  letter-spacing: 0.3px;
+}
+nav {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+nav button {
+  background: transparent;
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  padding: 6px 10px;
+  transition: all 0.25s;
+}
+nav button:hover {
+  color: var(--accent);
+  border-color: var(--line);
+}
+.cart-btn {
+  position: relative;
+}
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 800;
+  font-size: 12px;
+  padding: 4px 7px;
+  border-radius: 999px;
+  display: none;
+  min-width: 20px;
+  text-align: center;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 26px auto;
+  padding: 0 18px;
+}
+/* HERO with background image */
+.hero {
+  position: relative;
+  padding: 64px 18px; /* more breathing room */
+  text-align: center;
+  border-radius: 12px;
+  overflow: hidden;
+
+  /* 👇 set your watch image here */
+  background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.45),
+      rgba(0, 0, 0, 0.55)
+    ),
+    /* overlay */
+      url("https://rare-gallery.com/uploads/posts/1119226-illustration-monochrome-watch-luxury-watches-Breitling-darkness-computer-wallpaper-black-and-white-monochrome-photography.jpg")
+      center / cover no-repeat; /* <-- change path */
+}
+
+/* keep text above the overlay */
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* optional: stronger heading presence on image */
+.hero h1 {
+  margin: 0 0 8px;
+  font-size: 40px; /* tweak if needed */
+  color: var(--accent);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+.hero p {
+  color: var(--muted);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+}
+
+/* mobile: reduce height a bit */
+@media (max-width: 520px) {
+  .hero {
+    padding: 42px 16px;
+  }
+  .hero h1 {
+    font-size: 28px;
+  }
+}
+
+.hero h1 {
+  font-size: 32px;
+  margin: 0;
+  color: var(--accent);
+}
+.hero p {
+  color: var(--muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+  margin-top: 22px;
+}
+.card {
+  background: var(--card);
+  padding: 14px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+.card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.card h3 {
+  margin: 0;
+  font-size: 16px;
+}
+.meta {
+  color: var(--muted);
+  font-size: 13px;
+}
+.price {
+  font-weight: 800;
+  color: var(--accent);
+}
+.btn {
+  background: var(--accent);
+  border: none;
+  color: var(--accent-ink);
+  padding: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: opacity 0.25s;
+}
+.btn:hover {
+  opacity: 0.9;
+}
+.btn.ghost {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: #e6e6e6;
+}
+.btn.danger {
+  background: #ff6b6b;
+  color: #fff;
+}
+.size-select {
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #0f131a;
+  color: #e6e6e6;
+}
+
+footer {
+  text-align: center;
+  margin: 38px 0;
+  color: var(--muted);
+}
+
+/* overlays */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 24px;
+}
+.modal {
+  background: var(--card);
+  padding: 18px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 720px;
+  max-height: 90vh;
+  overflow: auto;
+  border: 1px solid var(--line);
+}
+.modal h3 {
+  margin-top: 0;
+}
+.small {
+  font-size: 13px;
+  color: var(--muted);
+}
+.muted {
+  color: var(--muted);
+}
+.muted-input {
+  background: #0f131a;
+  border: 1px solid var(--line);
+  padding: 8px;
+  border-radius: 8px;
+  color: #fff;
+  width: 100%;
+}
+label {
+  display: block;
+  margin: 8px 0 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.cart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cart-item {
+  display: flex;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 10px;
+  border-radius: 10px;
+  align-items: center;
+  border: 1px solid var(--line);
+}
+.cart-item img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.qty-controls {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.cart-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+.cart-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.confirm {
+  text-align: center;
+  padding: 20px;
+}
+.success-id {
+  background: #51cf66;
+  color: #05160a;
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-weight: 800;
+}
+.order-summary {
+  margin-top: 10px;
+  text-align: left;
+}
+
+/* toast */
+#toast {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0f131a;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: #fff;
+  display: none;
+  z-index: 80;
+  border: 1px solid var(--line);
+}
+
+@media (max-width: 520px) {
+  .card img {
+    height: 160px;
+  }
+}
+
+.modal-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
