@@ -273,6 +273,7 @@ function addToCart(productId, size, qty = 1) {
   }
   const prod = products.find((p) => p.id === productId);
   if (!prod) return;
+  trackView(prod.name);
 
   const existing = cart.find(
     (i) => i.id === productId && i.size === String(size),
