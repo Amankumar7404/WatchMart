@@ -17,8 +17,13 @@ import {
 
 /* ⛳ REPLACE WITH YOUR DATABASE URL */
 const app = initializeApp({
-  databaseURL:
-    "https://watch-market-41b8e-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  apiKey: "AIzaSyCtiVkr15-KbU3Hv7i4g2HmO0cClInpvvs",
+  authDomain: "watch-market-41b8e.firebaseapp.com",
+  databaseURL: "https://watch-market-41b8e-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "watch-market-41b8e",
+  storageBucket: "watch-market-41b8e.firebasestorage.app",
+  messagingSenderId: "400858590565",
+  appId: "1:400858590565:web:0a6d41653bd8eb0ff6858c",
 });
 const db = getDatabase(app);
 const auth = getAuth(app);
