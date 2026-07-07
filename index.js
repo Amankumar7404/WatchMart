@@ -566,14 +566,41 @@ authToggleLink.addEventListener("click", (e) => {
 });
 
 // Open/close modal (only when NOT logged in — logged in users log out instead)
+const userDropdown = document.getElementById("userDropdown");
+const logoutLink = document.getElementById("logoutLink");
+const myOrdersLink = document.getElementById("myOrdersLink");
+
+// Clicking the button either opens login modal (logged out) or toggles dropdown (logged in)
 loginBtn.addEventListener("click", () => {
   if (currentUser) {
-    signOut(auth);
-    loginBtn.textContent = "Login";
+    userDropdown.style.display =
+      userDropdown.style.display === "block" ? "none" : "block";
   } else {
     openModal(loginModal);
   }
 });
+
+// Close dropdown if clicking anywhere else on the page
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".user-menu-wrapper")) {
+    userDropdown.style.display = "none";
+  }
+});
+
+// Explicit logout action
+logoutLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  signOut(auth);
+  userDropdown.style.display = "none";
+});
+
+// Placeholder for "My Orders" — we'll build this in the next phase
+myOrdersLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  alert("Order history page coming soon!");
+  userDropdown.style.display = "none";
+});
+
 loginClose.addEventListener("click", () => closeModal(loginModal));
 loginModal.addEventListener("click", (e) => {
   if (e.target === loginModal) closeModal(loginModal);
