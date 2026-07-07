@@ -7,12 +7,21 @@ import {
   serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
 /* ⛳ REPLACE WITH YOUR DATABASE URL */
 const app = initializeApp({
   databaseURL:
     "https://watch-market-41b8e-default-rtdb.asia-southeast1.firebasedatabase.app/",
 });
 const db = getDatabase(app);
+const auth = getAuth(app);
 
 /* Save order to Firebase -> returns orderId (key) */
 async function saveOrderToFirebase(order) {
