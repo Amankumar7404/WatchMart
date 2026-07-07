@@ -527,31 +527,110 @@ document.getElementById("doneBtn").addEventListener("click", () => {
 });
 
 // Login modal (demo)
+/* ========= Real Authentication (Firebase Auth) ========= */
 const loginBtn = document.getElementById("loginBtn");
 const loginModal = document.getElementById("loginModal");
-const loginSubmit = document.getElementById("loginSubmit");
 const loginClose = document.getElementById("loginClose");
 const loginMsg = document.getElementById("loginMsg");
+const authEmail = document.getElementById("authEmail");
+const authPassword = document.getElementById("authPassword");
+const authSubmitBtn = document.getElementById("authSubmitBtn");
+const authModalTitle = document.getElementById("authModalTitle");
+const authToggleText = document.getElementById("authToggleText");
+const authToggleLink = document.getElementById("authToggleLink");
 
-loginBtn.addEventListener("click", () => openModal(loginModal));
+let isSignupMode = false; // tracks whether the modal is in "Login" or "Sign up" mode
+let currentUser = null; // holds the logged-in user's info once authenticated
+
+// Switch between Login and Sign up views (just changes text/labels, same form)
+authToggleLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  isSignupMode = !isSignupMode;
+  if (isSignupMode) {
+    authModalTitle.textContent = "Sign Up";
+    authSubmitBtn.textContent = "Sign Up";
+    authToggleText.textContent = "Already have an account?";
+    authToggleLink.textContent = "Login";
+  } else {
+    authModalTitle.textContent = "Login";
+    authSubmitBtn.textContent = "Login";
+    authToggleText.textContent = "Don't have an account?";
+    authToggleLink.textContent = "Sign up";
+  }
+  loginMsg.textContent = "";
+});
+
+// Open/close modal (only when NOT logged in — logged in users log out instead)
+loginBtn.addEventListener("click", () => {
+  if (currentUser) {
+    signOut(auth);
+    loginBtn.textContent = "Login";
+  } else {
+    openModal(loginModal);
+  }
+});
 loginClose.addEventListener("click", () => closeModal(loginModal));
 loginModal.addEventListener("click", (e) => {
   if (e.target === loginModal) closeModal(loginModal);
 });
 
-loginSubmit.addEventListener("click", () => {
-  const user = document.getElementById("username").value.trim();
-  const pass = document.getElementById("password").value.trim();
-  if (user && pass) {
-    loginMsg.textContent = "Login successful!";
-    setTimeout(() => closeModal(loginModal), 700);
-    document.getElementById("username").value = "";
-    document.getElementById("password").value = "";
-  } else {
+// Handle Login / Sign up submit
+authSubmitBtn.addEventListener("click", async () => {
+  const email = authEmail.value.trim();
+  const password = authPassword.value.trim();
+
+  if (!email || !password) {
     loginMsg.textContent = "Please fill all fields!";
+    return;
+  }
+
+  try {
+    if (isSignupMode) {
+      // Create a brand new account
+      await createUserWithEmailAndPassword(auth, email, password);
+      loginMsg.textContent = "Account created! You're now logged in.";
+    } else {
+      // Log into an existing account
+      await signInWithEmailAndPassword(auth, email, password);
+      loginMsg.textContent = "Login successful!";
+    }
+    authEmail.value = "";
+    authPassword.value = "";
+    setTimeout(() => closeModal(loginModal), 700);
+  } catch (err) {
+    // Firebase gives descriptive error codes/messages we can show directly
+    loginMsg.textContent = humanizeAuthError(err.code);
   }
 });
 
+// Convert Firebase's technical error codes into friendly messages
+function humanizeAuthError(code) {
+  switch (code) {
+    case "auth/email-already-in-use":
+      return "This email is already registered. Try logging in instead.";
+    case "auth/invalid-email":
+      return "Please enter a valid email address.";
+    case "auth/weak-password":
+      return "Password should be at least 6 characters.";
+    case "auth/invalid-credential":
+    case "auth/wrong-password":
+    case "auth/user-not-found":
+      return "Incorrect email or password.";
+    default:
+      return "Something went wrong. Please try again.";
+  }
+}
+
+// This runs automatically whenever login state changes (login, logout, or page load)
+onAuthStateChanged(auth, (user) => {
+  currentUser = user;
+  if (user) {
+    // Logged in — show their email instead of "Login", and change button to "Logout"
+    loginBtn.textContent = user.email.split("@")[0]; // show just the username part
+  } else {
+    loginBtn.textContent = "Login";
+  }
+});
 /* ========= Init ========= */
 renderProducts();
 renderCartCount();
