@@ -42,28 +42,36 @@
 
     <footer>© <span id="year"></span> TimeLuxe — Watch Store</footer>
 
-    <!-- Login Modal -->
+    <!-- Login / Signup Modal -->
     <div id="loginModal" class="overlay">
       <div class="modal" style="max-width: 360px">
-        <h3>Login</h3>
+        <h3 id="authModalTitle">Login</h3>
+
         <input
-          type="text"
-          id="username"
-          placeholder="Username"
+          type="email"
+          id="authEmail"
+          placeholder="Email"
           class="muted-input"
         />
         <input
           type="password"
-          id="password"
+          id="authPassword"
           placeholder="Password"
           class="muted-input"
           style="margin-top: 8px"
         />
+
         <div class="modal-actions">
-          <button class="btn" id="loginSubmit">Login</button>
+          <button class="btn" id="authSubmitBtn">Login</button>
           <button class="btn ghost" id="loginClose">Close</button>
         </div>
+
         <p id="loginMsg" class="small muted" style="margin-top: 8px"></p>
+
+        <p class="small muted" style="margin-top: 12px">
+          <span id="authToggleText">Don't have an account?</span>
+          <a href="#" id="authToggleLink" style="color: #4da6ff">Sign up</a>
+        </p>
       </div>
     </div>
 
